@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 创建bean的三种方式：构造器、静态工厂方法、工厂类的方法 -->
+
+    <!-- 第一种：构造器-->
+    <bean id="demoBean" class="com.sunrise.sf.core.beanOverview.bean.DemoBean">
+        <!-- 其他配置 -->
+    </bean>
+
+    <!-- 第二种：指定静态工厂方法实例化bean，取代构造器创建 -->
+    <bean id="beanStaticFactoryMethod" class="com.sunrise.sf.core.beanOverview.beanfactory.DemoBeanFactory"
+          factory-method="createInstance"/>
+
+    <!-- 第三种：声明工厂bean，通过指定工厂bean和对应方法创建bean -->
+    <bean id="serviceLocator" class="com.sunrise.sf.core.beanOverview.beanfactory.DefaultServiceLocator">
+        <!-- 可注入其他依赖 -->
+    </bean>
+    <!-- 通过 factory-bean 可指定工厂类，通过 factory-method 指定对应的实例化方法。 -->
+    <bean id="beanOneService" factory-bean="serviceLocator" factory-method="createBeanOneServiceInstance"/>
+    <bean id="beanTwoService" factory-bean="serviceLocator" factory-method="createBeanTwoServiceInstance"/>
+</beans>
